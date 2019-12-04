@@ -3,8 +3,7 @@ To play the game of life, Run GameOfLifeGame.java.
 	Click on the cells to either fill or kill the spots.
 	Click 'Advance' to simulate the game of life.
 	Click 'Reset' to reset the board.
-NOTICE: - The widget does not change the size of the board. In order to do that,
-			The Global Variable's widthBoard and heightBoard must be changed in the GameOfLifeWidget.java.
+NOTICE: - The slider does not change the size of the board. In order to do that,The Global Variable's widthBoard and heightBoard must be changed in the GameOfLifeWidget.java.
 		- The width and height variables cannot reach high numbers, because of my own mistakes in using
 		both Spot and SpotBoard Objects in this example of GameOfLifeGame. The game still runs as it was designed to.
 		
