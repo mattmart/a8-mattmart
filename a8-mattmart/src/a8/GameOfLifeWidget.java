@@ -28,12 +28,11 @@ public class GameOfLifeWidget extends JPanel implements ActionListener, SpotList
 	private static final int FPS_INIT = 10;
 	
 	private JSpotBoard _board;	/* SpotBoard playing area. */
-	private JSpotBoard boardCopy;
+	//private JSpotBoard boardCopy;
 	private JSpotBoard emptyBoard;
 	private JLabel _message;		/* Label for messages. */
 	private JButton reset_button, fillRandom, advButton;
 	private JSlider boardSize;
-	//private int count;
 	private int widthBoard = 10;
 	private int heightBoard = 10;
 	private JSpot[][] tempSpot2;
@@ -42,13 +41,13 @@ public class GameOfLifeWidget extends JPanel implements ActionListener, SpotList
 		
 		
 		_board = new JSpotBoard(widthBoard ,heightBoard);
-		boardCopy = new JSpotBoard(widthBoard, heightBoard);
+		//boardCopy = new JSpotBoard(widthBoard, heightBoard);
 		emptyBoard = new JSpotBoard(2,2);
 		_message = new JLabel();
 		
 		/* Set layout and place SpotBoard at center. */
 		setLayout(new BorderLayout());
-		add(boardCopy, BorderLayout.CENTER);
+		//add(boardCopy, BorderLayout.CENTER);
 		add(_board, BorderLayout.CENTER);
 		//add(boardCopy, BorderLayout.CENTER);
 		
@@ -102,7 +101,7 @@ public class GameOfLifeWidget extends JPanel implements ActionListener, SpotList
 		 * spots on the spot board.
 		 */
 		_board.addSpotListener(this);
-		boardCopy.addSpotListener(this);
+		//boardCopy.addSpotListener(this);
 
 		/* Reset game. */
 		resetGame();
@@ -129,10 +128,10 @@ public class GameOfLifeWidget extends JPanel implements ActionListener, SpotList
 			s.clearSpot();
 			s.toDead();
 		}
-		for (Spot s : boardCopy) {
-			s.clearSpot();
-			s.toDead();
-		}
+//		for (Spot s : boardCopy) {
+//			s.clearSpot();
+//			s.toDead();
+//		}
 		
 		/* Display game start message. */
 		
@@ -152,17 +151,17 @@ public class GameOfLifeWidget extends JPanel implements ActionListener, SpotList
 			}
 			s.setRandNum(Math.random());
 		}
-		for (Spot s : boardCopy) {
-			if (s.getRandNum() > (Math.random())) {
-			s.setSpotColor(Color.BLUE);
-			s.toggleSpot();
-			s.toAlive();
-			} else {
-				s.clearSpot();
-				s.toDead();
-			}
-			s.setRandNum(Math.random());
-		}
+//		for (Spot s : boardCopy) {
+//			if (s.getRandNum() > (Math.random())) {
+//			s.setSpotColor(Color.BLUE);
+//			s.toggleSpot();
+//			s.toAlive();
+//			} else {
+//				s.clearSpot();
+//				s.toDead();
+//			}
+//			s.setRandNum(Math.random());
+//		}
 	}
 	
 	@Override
@@ -206,17 +205,13 @@ public class GameOfLifeWidget extends JPanel implements ActionListener, SpotList
 			_message.setText( "killed life at " + s.getCoordString() + ". ");
 			s.clearSpot();
 			s.toDead();
-			s.toggleSpot();
-		}
-		if (s.isEmpty()) {
-			_message.setText( "created life at " + s.getCoordString() + ". ");
+			return;
 		}
 		
 		
 		s.setSpotColor(Color.BLUE);
 		s.toggleSpot();
 		s.toAlive();
-		
 		
 	}
 
