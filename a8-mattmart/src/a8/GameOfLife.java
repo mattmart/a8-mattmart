@@ -1,13 +1,16 @@
 package a8;
 
 import java.awt.BorderLayout;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
-public class GameOfLifeGame {
+public class GameOfLife  {
 
+	
 public static void main(String[] args) {
 		
 		/* Create top level window. */
@@ -32,7 +35,9 @@ public static void main(String[] args) {
 		/* Pack main frame and make visible. */
 		
 		main_frame.pack();
-		main_frame.setVisible(true);		
+		main_frame.setVisible(true);
+		
+		
 	}
 	
 }

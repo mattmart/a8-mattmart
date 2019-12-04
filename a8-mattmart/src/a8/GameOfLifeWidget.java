@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -31,11 +33,12 @@ public class GameOfLifeWidget extends JPanel implements ActionListener, SpotList
 	//private JSpotBoard boardCopy;
 	private JSpotBoard emptyBoard;
 	private JLabel _message;		/* Label for messages. */
-	private JButton reset_button, fillRandom, advButton;
+	private JButton reset_button, fillRandom, advButton, playButton;
 	private JSlider boardSize;
 	private int widthBoard = 10;
 	private int heightBoard = 10;
 	private JSpot[][] tempSpot2;
+	private boolean play;
 	
 	public GameOfLifeWidget() {
 		
@@ -71,9 +74,9 @@ public class GameOfLifeWidget extends JPanel implements ActionListener, SpotList
 		
 		// play button
 		
-//		playButton = new JButton("Play");
-//		playButton.addActionListener(this);
-//		reset_message_panel.add(playButton, BorderLayout.NORTH);
+		playButton = new JButton("Play");
+		playButton.addActionListener(this);
+		reset_message_panel.add(playButton, BorderLayout.NORTH);
 		
 		
 		// advance button
@@ -114,10 +117,6 @@ public class GameOfLifeWidget extends JPanel implements ActionListener, SpotList
 	 * and displaying start message.
 	 * 
 	 */
-	
-	private void resetBoard() {
-		
-	}
 
 	private void resetGame() {
 		/* Clear all spots on board. Uses the fact that SpotBoard
@@ -128,10 +127,6 @@ public class GameOfLifeWidget extends JPanel implements ActionListener, SpotList
 			s.clearSpot();
 			s.toDead();
 		}
-//		for (Spot s : boardCopy) {
-//			s.clearSpot();
-//			s.toDead();
-//		}
 		
 		/* Display game start message. */
 		
@@ -151,18 +146,33 @@ public class GameOfLifeWidget extends JPanel implements ActionListener, SpotList
 			}
 			s.setRandNum(Math.random());
 		}
-//		for (Spot s : boardCopy) {
-//			if (s.getRandNum() > (Math.random())) {
-//			s.setSpotColor(Color.BLUE);
-//			s.toggleSpot();
-//			s.toAlive();
-//			} else {
-//				s.clearSpot();
-//				s.toDead();
-//			}
-//			s.setRandNum(Math.random());
-//		}
 	}
+	
+	//public void run() {
+		public void gameOfLifeplay() {
+		Timer time = new Timer();
+		TimerTask task = new TimerTask() {
+			public void run() {
+		if (play) {
+			gameMechanics();
+			}
+			}
+		};
+//		try {
+//			Thread.sleep(1000);
+//		} catch (InterruptedException e) {
+//		}
+		if (widthBoard < 40) {
+		time.scheduleAtFixedRate(task, 500, 1400);
+		
+		} 
+		if (widthBoard > 39 && widthBoard < 80) {
+			time.scheduleAtFixedRate(task, 2000, 5000);
+			} 
+		
+		}
+		
+	//}
 	
 	@Override
 	public void stateChanged(ChangeEvent e) {
@@ -175,7 +185,7 @@ public class GameOfLifeWidget extends JPanel implements ActionListener, SpotList
 	        	if (fps == i) {
 	        		widthBoard =i;
 	        		heightBoard = i;
-	        		resetBoard();
+	        		//resetBoard();
 	        	}
 	        }
 	    } 
@@ -184,18 +194,29 @@ public class GameOfLifeWidget extends JPanel implements ActionListener, SpotList
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
 		//System.out.println(e.getSource().toString());
 		if (e.getSource() == reset_button) {
+			play = false;
 				resetGame();
 		}
 		if (e.getSource() == fillRandom) {
+			play = false;
 			fillGame();
 		}
 		if (e.getSource() == advButton) {
+			play = false;
 			// System.out.println("hello");
 			gameMechanics();
 		}
+		if (e.getSource() == playButton) {
+			if (play) {
+				play = false;
+			} else {
+				play = true;
+				gameOfLifeplay();
+			}
+		}
+		
 		
 	}
 

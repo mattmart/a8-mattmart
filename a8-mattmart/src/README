@@ -1,9 +1,12 @@
 To play the game of life, Run GameOfLifeGame.java.
-	Click 'fill' to fill the cells with spots.
+	Click 'fill' to randomly fill the cells with spots.
 	Click on the cells to either fill or kill the spots.
-	Click 'Advance' to simulate the game of life.
+	Click on 'Play' to simulate the game.
+	Click 'Advance' to simulate the game one move at a time.
 	Click 'Reset' to reset the board.
 NOTICE: - The slider does not change the size of the board. In order to do that,The Global Variable's widthBoard and heightBoard must be changed in the GameOfLifeWidget.java.
-		- The width and height variables cannot reach high numbers, because of my own mistakes in using
+		- The play button cannot handle a large board.
+		- Using the play button multiple times will increase its speed, I do not recommend using play more than twice, as it becomes too fast for the board to complete its processes.
+		- If the width and height variables are large numbers the game will run very slowly. This is because of my own mistakes in using
 		both Spot and SpotBoard Objects in this example of GameOfLifeGame. The game still runs as it was designed to.
 		
