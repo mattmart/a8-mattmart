@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 
 
@@ -20,19 +21,21 @@ import javax.swing.event.ChangeEvent;
 
 
 
-public class GameOfLifeWidget extends JPanel implements ActionListener, SpotListener {
+public class GameOfLifeWidget extends JPanel implements ActionListener, SpotListener, ChangeListener {
 	
-	//private enum LIFE {DEAD, ALIVE}
+	private static final int FPS_MIN = 0;
+	private static final int FPS_MAX = 100;
+	private static final int FPS_INIT = 10;
 	
 	private JSpotBoard _board;	/* SpotBoard playing area. */
 	private JSpotBoard boardCopy;
 	private JSpotBoard emptyBoard;
 	private JLabel _message;		/* Label for messages. */
-	private JButton reset_button, fillRandom, playButton;
+	private JButton reset_button, fillRandom, advButton;
 	private JSlider boardSize;
 	//private int count;
-	private int widthBoard = 11;
-	private int heightBoard = 11;
+	private int widthBoard = 10;
+	private int heightBoard = 10;
 	private JSpot[][] tempSpot2;
 	
 	public GameOfLifeWidget() {
@@ -69,13 +72,17 @@ public class GameOfLifeWidget extends JPanel implements ActionListener, SpotList
 		
 		// play button
 		
-		playButton = new JButton("Play");
-		playButton.addActionListener(this);
-		reset_message_panel.add(playButton, BorderLayout.CENTER);
+//		playButton = new JButton("Play");
+//		playButton.addActionListener(this);
+//		reset_message_panel.add(playButton, BorderLayout.NORTH);
 		
-		final int FPS_MIN = 0;
-		final int FPS_MAX = 100;
-		final int FPS_INIT = 10;
+		
+		// advance button
+		
+		advButton = new JButton("Advance");
+		advButton.addActionListener(this);
+		reset_message_panel.add(advButton, BorderLayout.CENTER);
+		
 		// board size slider
 		boardSize = new JSlider(JSlider.HORIZONTAL, FPS_MIN, FPS_MAX, FPS_INIT);
 		boardSize.setMajorTickSpacing(10);
@@ -158,8 +165,11 @@ public class GameOfLifeWidget extends JPanel implements ActionListener, SpotList
 		}
 	}
 	
+	@Override
 	public void stateChanged(ChangeEvent e) {
+		
 	    JSlider source = (JSlider)e.getSource();
+	   System.out.println("hello");
 	    if (!source.getValueIsAdjusting()) {
 	        int fps = (int)source.getValue();
 	        for (int i=0; i<100; i++) {
@@ -183,12 +193,11 @@ public class GameOfLifeWidget extends JPanel implements ActionListener, SpotList
 		if (e.getSource() == fillRandom) {
 			fillGame();
 		}
-		if (e.getSource() == playButton) {
+		if (e.getSource() == advButton) {
+			// System.out.println("hello");
 			gameMechanics();
 		}
-		if (e.getSource() == boardSize) {
-			
-		}
+		
 	}
 
 	@Override
@@ -349,5 +358,7 @@ public class GameOfLifeWidget extends JPanel implements ActionListener, SpotList
 //		System.out.println(count2);
 		
 	}
+
+	
 	
 }
